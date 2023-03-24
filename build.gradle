@@ -10,6 +10,10 @@ repositories {
 }
 
 dependencies {
+    // https://mvnrepository.com/artifact/org.bitbucket.cowwoc/diff-match-patch
+    implementation group: 'org.bitbucket.cowwoc', name: 'diff-match-patch', version: '1.2'
+    // https://mvnrepository.com/artifact/com.github.tomas-langer/chalk
+    implementation group: 'com.github.tomas-langer', name: 'chalk', version: '1.0.2'
     testImplementation platform('org.junit:junit-bom:5.9.1')
     testImplementation 'org.junit.jupiter:junit-jupiter'
     // https://mvnrepository.com/artifact/org.hamcrest/hamcrest

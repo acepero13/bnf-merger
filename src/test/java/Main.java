@@ -1,4 +1,5 @@
 import com.acepero13.research.bnfreplacer.core.Replacer;
+import com.acepero13.research.bnfreplacer.core.reports.model.Report;
 import com.acepero13.research.bnfreplacer.utils.Writer;
 
 import java.io.IOException;
@@ -13,7 +14,16 @@ public class Main {
 
         List<String> result = replacer.replaceAll();
 
-        Writer.save(result,Path.of("/home/alvaro/Documents/Projects/Java/bnfextractor/tmp/Result_DA_en.bnf"));
+        Report report = replacer.report();
+
+        System.out.println("\n\n----------------------- REPORT --------------------\n");
+        System.out.println("Number of insertions: " + report.totalInsertions());
+        System.out.println("Number of updates: " + report.totalUpdates());
+        System.out.println("Number of changes: " + report.totalChanges() + "\n");
+
+        report.forEach(System.out::println);
+
+        Writer.save(result, Path.of("/home/alvaro/Documents/Projects/Java/bnfextractor/tmp/Result_DA_en.bnf"));
 
     }
 }

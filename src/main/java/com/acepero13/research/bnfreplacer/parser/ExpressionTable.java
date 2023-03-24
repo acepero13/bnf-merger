@@ -41,7 +41,6 @@ public enum ExpressionTable {
                 .map(parser -> parser.parse(line));
     }
 
-
     private static ExpressionMatcher extractMatcherFrom(String line, ExpressionTable expressionRegex) {
         Pattern pattern = Pattern.compile(expressionRegex.regexPattern);
         return new ExpressionMatcher(pattern.matcher(line), expressionRegex);

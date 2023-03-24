@@ -1,5 +1,6 @@
 package com.acepero13.research.bnfreplacer.core;
 
+import com.acepero13.research.bnfreplacer.core.reports.model.Difference;
 import com.acepero13.research.bnfreplacer.model.Expression;
 
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ import java.util.stream.IntStream;
 public class Bnf implements Iterable<Expression> {
     private final List<Expression> expressions;
     private List<Expression> modifiableExpressions;
+
 
     private Bnf(List<Expression> expressions) {
         this.expressions = Collections.unmodifiableList(expressions);
@@ -43,14 +45,16 @@ public class Bnf implements Iterable<Expression> {
         this.modifiableExpressions = new ArrayList<>(expressions);
     }
 
-    public void update(Expression sourceExpression) {
+    public Difference update(Expression sourceExpression) {
         var index = indexOf(sourceExpression);
         if (index != -1) {
             Expression original = modifiableExpressions.get(index);
             if (!original.equals(sourceExpression)) {
                 modifiableExpressions.set(index, sourceExpression);
+                return Difference.update(original, sourceExpression);
             }
         }
+        return Difference.noOp();
     }
 
     private int indexOf(Expression sourceExpression) {
@@ -67,5 +71,4 @@ public class Bnf implements Iterable<Expression> {
     public List<String> asStrings() {
         return modifiableExpressions.stream().map(Expression::originalLine).collect(Collectors.toList());
     }
-
 }
