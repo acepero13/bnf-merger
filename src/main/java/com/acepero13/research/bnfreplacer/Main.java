@@ -47,7 +47,7 @@ public class Main {
     }
 
     public static void main(String[] args) throws IOException, IllegalAccessException {
-        if(args.length != 2) {
+        if (args.length != 2) {
             throw new IllegalAccessException("Expected two arguments, source and destination but got: " + args.length);
         }
         new Main(Path.of(args[0]), Path.of(args[1])).execute();
