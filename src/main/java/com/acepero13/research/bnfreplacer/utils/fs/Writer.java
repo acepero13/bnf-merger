@@ -1,4 +1,4 @@
-package com.acepero13.research.bnfreplacer.utils;
+package com.acepero13.research.bnfreplacer.utils.fs;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;

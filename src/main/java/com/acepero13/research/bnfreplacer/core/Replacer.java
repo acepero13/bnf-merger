@@ -3,7 +3,7 @@ package com.acepero13.research.bnfreplacer.core;
 import com.acepero13.research.bnfreplacer.core.reports.model.Difference;
 import com.acepero13.research.bnfreplacer.core.reports.model.Report;
 import com.acepero13.research.bnfreplacer.model.Expression;
-import com.acepero13.research.bnfreplacer.utils.Reader;
+import com.acepero13.research.bnfreplacer.utils.fs.Reader;
 
 import java.io.InputStream;
 import java.nio.file.Path;
