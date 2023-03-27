@@ -10,6 +10,8 @@ repositories {
     mavenCentral()
 }
 
+mainClassName = 'com.acepero13.research.bnfreplacer.Main'
+
 dependencies {
 
     testImplementation platform('org.junit:junit-bom:5.9.1')
@@ -21,6 +23,12 @@ dependencies {
 
 application {
     mainClassName = 'com.acepero13.research.bnfreplacer.Main'
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': mainClassName
+    }
 }
 
 test {
