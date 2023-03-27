@@ -4,11 +4,11 @@ import com.acepero13.research.bnfreplacer.model.Expression;
 
 public interface Difference {
     static Difference update(Expression original, Expression change) {
-        return new Update(original.originalLine(), change.originalLine(), Operation.UPDATE);
+        return new Update(original.originalLine(), change.originalLine());
     }
 
     static Difference insert(Expression change) {
-        return new Insert(change.originalLine(), Operation.INSERTION);
+        return new Insert(change.originalLine());
     }
 
     Operation operation();
@@ -39,6 +39,6 @@ public interface Difference {
     }
 
     enum Operation {
-        INSERTION, UPDATE, NOP;
+        INSERTION, UPDATE, NOP
     }
 }

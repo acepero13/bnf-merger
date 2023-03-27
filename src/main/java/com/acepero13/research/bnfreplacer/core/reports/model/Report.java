@@ -12,7 +12,6 @@ public record Report(List<Difference> differences) {
         differences.stream()
                 .map(Difference::report)
                 .forEach(consumer);
-        ;
     }
 
     public int totalInsertions() {
