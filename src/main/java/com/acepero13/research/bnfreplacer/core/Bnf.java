@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class Bnf implements Iterable<Expression> {
+final class Bnf implements Iterable<Expression> {
     private final List<Expression> expressions;
     private List<Expression> mutableExpressions;
 
