@@ -40,7 +40,7 @@ class ReplacerTest {
     }
 
     @Test
-    void addsOneValueBecauseSymbolIsDifferent() {
+    void insertsOneValueBecauseSymbolIsDifferent() {
         List<String> source = List.of("!start <AskPrice2>;");
         List<String> destination = List.of("!start <AskPrice>;", "<AskPrice>:\t Wie viel kostet ( es| das)| Was ist der Preis;", "!start <No>;", "<No>:\t ( nein| nee| no);");
         var replacer = Replacer.of(source, destination);
@@ -49,6 +49,18 @@ class ReplacerTest {
         List<String> expected = List.of("!start <AskPrice>;", "<AskPrice>:\t Wie viel kostet ( es| das)| Was ist der Preis;", "!start <No>;", "<No>:\t ( nein| nee| no);", "!start <AskPrice2>;");
 
         assertThat(result, equalTo(expected));
+    }
+
+    @Test void reportsInsertion(){
+        List<String> source = List.of("!start <AskPrice2>;");
+        List<String> destination = List.of("!start <AskPrice>;", "<AskPrice>:\t Wie viel kostet ( es| das)| Was ist der Preis;", "!start <No>;", "<No>:\t ( nein| nee| no);");
+        var replacer = Replacer.of(source, destination);
+        replacer.replaceAll();
+        var report = replacer.report();
+
+        assertThat(report.totalInsertions(), equalTo(1));
+        assertThat(report.totalChanges(), equalTo(1));
+        assertThat(report.totalUpdates(), equalTo(0));
     }
 
     @Test

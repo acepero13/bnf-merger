@@ -12,12 +12,12 @@ import java.util.stream.IntStream;
 
 public class Bnf implements Iterable<Expression> {
     private final List<Expression> expressions;
-    private List<Expression> modifiableExpressions;
+    private List<Expression> mutableExpressions;
 
 
     private Bnf(List<Expression> expressions) {
         this.expressions = Collections.unmodifiableList(expressions);
-        this.modifiableExpressions = new ArrayList<>(expressions);
+        this.mutableExpressions = new ArrayList<>(expressions);
     }
 
     public static Bnf ofExpressions(List<Expression> expressions) {
@@ -36,21 +36,21 @@ public class Bnf implements Iterable<Expression> {
     }
 
     public boolean contains(Expression sourceExpression) {
-        return modifiableExpressions.stream().anyMatch(e -> e.representsSameExpressionAs(sourceExpression));
+        return mutableExpressions.stream().anyMatch(e -> e.representsSameExpressionAs(sourceExpression));
     }
 
 
     public void clear() {
-        this.modifiableExpressions.clear();
-        this.modifiableExpressions = new ArrayList<>(expressions);
+        this.mutableExpressions.clear();
+        this.mutableExpressions = new ArrayList<>(expressions);
     }
 
     public Difference update(Expression sourceExpression) {
         var index = indexOf(sourceExpression);
         if (index != -1) {
-            Expression original = modifiableExpressions.get(index);
+            Expression original = mutableExpressions.get(index);
             if (!original.equals(sourceExpression)) {
-                modifiableExpressions.set(index, sourceExpression);
+                mutableExpressions.set(index, sourceExpression);
                 return Difference.update(original, sourceExpression);
             }
         }
@@ -58,17 +58,17 @@ public class Bnf implements Iterable<Expression> {
     }
 
     private int indexOf(Expression sourceExpression) {
-        return IntStream.range(0, modifiableExpressions.size())
-                .filter(i -> modifiableExpressions.get(i).representsSameExpressionAs(sourceExpression))
+        return IntStream.range(0, mutableExpressions.size())
+                .filter(i -> mutableExpressions.get(i).representsSameExpressionAs(sourceExpression))
                 .findFirst()
                 .orElse(-1);
     }
 
     public void add(Expression sourceExpression) {
-        modifiableExpressions.add(sourceExpression);
+        mutableExpressions.add(sourceExpression);
     }
 
     public List<String> asStrings() {
-        return modifiableExpressions.stream().map(Expression::originalLine).collect(Collectors.toList());
+        return mutableExpressions.stream().map(Expression::originalLine).collect(Collectors.toList());
     }
 }

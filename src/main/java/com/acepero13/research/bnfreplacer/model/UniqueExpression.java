@@ -1,26 +1,14 @@
 package com.acepero13.research.bnfreplacer.model;
 
-import java.util.Objects;
-
-public record UniqueExpression(String symbol, String originalLine) implements Expression {
+public sealed interface UniqueExpression extends Expression permits Grammar, Language, Pragma {
     @Override
-    public String expression() {
-        return symbol;
+    default boolean representsSameExpressionAs(Expression expr) {
+        return symbol().equals(expr.symbol());
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        UniqueExpression that = (UniqueExpression) o;
-        return Objects.equals(symbol, that.symbol);
+    default boolean isEqual(Object object){
+        return object instanceof UniqueExpression && ((UniqueExpression) object).symbol().equals(symbol());
     }
 
-    @Override
-    public int hashCode() {
-        int result = symbol != null ? symbol.hashCode() : 0;
-        result = 31 * result ;
-        return result;
-    }
+    boolean equals(Object o);
 }

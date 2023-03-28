@@ -36,6 +36,7 @@ public final class Replacer {
     // TODO: Ignore delete for now
     public List<String> replaceAll() {
         destination.clear();
+
         for (Expression sourceExpression : source) {
             process(sourceExpression);
         }
@@ -44,12 +45,20 @@ public final class Replacer {
 
     private void process(Expression sourceExpression) {
         if (destination.contains(sourceExpression)) {
-            Difference update = destination.update(sourceExpression);
-            differences.add(update);
+            updateWith(sourceExpression);
         } else {
-            destination.add(sourceExpression);
-            differences.add(Difference.insert(sourceExpression));
+            addNew(sourceExpression);
         }
+    }
+
+    private void addNew(Expression sourceExpression) {
+        destination.add(sourceExpression);
+        differences.add(Difference.insert(sourceExpression));
+    }
+
+    private void updateWith(Expression sourceExpression) {
+        Difference update = destination.update(sourceExpression);
+        differences.add(update);
     }
 
 

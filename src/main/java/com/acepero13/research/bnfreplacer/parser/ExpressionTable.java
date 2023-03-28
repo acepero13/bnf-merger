@@ -1,9 +1,6 @@
 package com.acepero13.research.bnfreplacer.parser;
 
 import com.acepero13.research.bnfreplacer.model.Expression;
-import com.acepero13.research.bnfreplacer.model.RuleSymbol;
-import com.acepero13.research.bnfreplacer.model.StartSymbol;
-import com.acepero13.research.bnfreplacer.model.UniqueExpression;
 
 import java.util.Arrays;
 import java.util.Optional;
@@ -12,18 +9,12 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public enum ExpressionTable {
-    START_SYMBOL("^!start\\s+<([^>]+)>;$", (Matcher m, String line) -> new StartSymbol(sanitize(m.group(1)), line)),
-    RULE_SYMBOL("^<([^>]+)>:\\s+(.+);$", (Matcher m, String line) -> new RuleSymbol(sanitize(m.group(1)), sanitize(m.group(2)), line)),
+    START_SYMBOL("^!start\\s+<([^>]+)>;$", (Matcher m, String line) -> Expression.start(m.group(1), line)),
+    RULE_SYMBOL("^<([^>]+)>:\\s+(.+);$", (Matcher m, String line) -> Expression.rule(m.group(1), m.group(2), line)),
+    GRAMMAR("^!grammar\\s+(\\w+);?$", (Matcher m, String line) -> Expression.grammar(m.group(1), line)),
+    LANGUAGE("^!language\\s+\"([^\"]+)\";", (Matcher m, String line) -> Expression.language(m.group(1), line)),
+    PRAGMA("BNF\\+EM\\s+(\\S+)", (Matcher m, String line) -> Expression.pragma(m.group(1), line));
 
-    GRAMMAR("^!(grammar)\\b", (Matcher m, String line) -> new UniqueExpression(m.group(1), line)),
-
-    LANGUAGE("^!(language)\\b", (Matcher m, String line) -> new UniqueExpression(m.group(1), line)),
-
-    PRAGMA("^(#BNF\\+EM)\\b", (Matcher m, String line) -> new UniqueExpression(m.group(1), line));
-
-    private static String sanitize(String value) {
-        return value.trim();
-    }
 
     private final String regexPattern;
     private final BiFunction<Matcher, String, Expression> factory;
