@@ -1,9 +1,11 @@
 package com.acepero13.research.bnfreplacer.model;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.instanceOf;
 
 class ExpressionTest {
 
@@ -23,6 +25,15 @@ class ExpressionTest {
 
         assertThat(expr.originalLine(), equalTo(line));
     }
+
+    @Test
+    @DisplayName("<ADJECTIVE>:( cheap) | ( light); -> RuleExpression")
+    void bug_shouldRecognizeExpression(){
+        String line = "<ADJECTIVE>:( cheap) | ( light);";
+        var expr = Expression.of(line);
+        assertThat(expr, instanceOf(RuleSymbol.class));
+    }
+
 
 
 }

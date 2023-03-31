@@ -8,8 +8,8 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        Path source = Path.of("/home/alvaro/Documents/Projects/Java/bnfextractor/tmp/en_product_search_mobility_generated_en.bnf");
-        Path destination = Path.of("/home/alvaro/Documents/Projects/Java/bnfextractor/tmp/DA_en.bnf");
+        Path source = Path.of("C:\\Users\\cepero\\Documents\\NewProjects\\bnf-merger\\tmp\\en_grammar_en.bnf");
+        Path destination = Path.of("C:\\Users\\cepero\\Documents\\NewProjects\\bnf-merger\\tmp\\DA_en.bnf");
         Replacer replacer = Replacer.of(source, destination);
 
         List<String> result = replacer.replaceAll();
@@ -24,7 +24,7 @@ public class Main {
         report.forEach(System.out::println);
 
         System.out.println("\n\n ------------ Finished --------------------- \n");
-        Writer.save(result, Path.of("/home/alvaro/Documents/Projects/Java/bnfextractor/tmp/Result_DA_en.bnf"));
+        //Writer.save(result, Path.of("/home/alvaro/Documents/Projects/Java/bnfextractor/tmp/Result_DA_en.bnf"));
 
     }
 }

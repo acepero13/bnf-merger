@@ -9,10 +9,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public enum ExpressionTable {
-    START_SYMBOL("^!start\\s+<([^>]+)>;$", (Matcher m, String line) -> Expression.start(m.group(1), line)),
-    RULE_SYMBOL("^<([^>]+)>:\\s+(.+);$", (Matcher m, String line) -> Expression.rule(m.group(1), m.group(2), line)),
-    GRAMMAR("^!grammar\\s+(\\w+);?$", (Matcher m, String line) -> Expression.grammar(m.group(1), line)),
-    LANGUAGE("^!language\\s+\"([^\"]+)\";", (Matcher m, String line) -> Expression.language(m.group(1), line)),
+    START_SYMBOL("^!start\\s*<([^>]+)>;$", (Matcher m, String line) -> Expression.start(m.group(1), line)),
+    RULE_SYMBOL("^<([^>]+)>:\\s*(.+);$", (Matcher m, String line) -> Expression.rule(m.group(1), m.group(2), line)),
+    GRAMMAR("^!grammar\\s*(\\w+);?$", (Matcher m, String line) -> Expression.grammar(m.group(1), line)),
+    LANGUAGE("^!language\\s*\"([^\"]+)\";", (Matcher m, String line) -> Expression.language(m.group(1), line)),
     PRAGMA("BNF\\+EM\\s+(\\S+)", (Matcher m, String line) -> Expression.pragma(m.group(1), line));
 
 

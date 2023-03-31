@@ -1,13 +1,17 @@
 package com.acepero13.research.bnfreplacer.core;
 
 import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.acepero13.research.bnfreplacer.test.utils.Assertions.assertListsAreEqual;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ReplacerTest {
     @Test
@@ -37,7 +41,7 @@ class ReplacerTest {
 
         List<String> expected = List.of("!start <AskPrice>;", "<AskPrice>:\t Was ist der Preis;", "!start <No>;", "<No>:\t ( nein| nee| no);");
 
-        assertThat(result, equalTo(expected));
+        assertListsAreEqual(expected, result);
     }
 
     @Test
@@ -102,10 +106,20 @@ class ReplacerTest {
     }
 
     @Test
-    @Disabled("To see if this really affects")
-    void ignoreDifferencesDueToSpaces(){
-        List<String> source = List.of("<Hotwords>:\t Hallo ( Audi| Assistent| Helfer| Edwin);");
-        List<String> destination = List.of("<Hotwords>: Hallo (Audi | Assistent | Helfer | Edwin);");
+    @DisplayName("Reorders start because of dependency")
+    void reorders(){
+
+        List<String> source = List.of("!start <IMPLICIT_QUESTION_RACE_TRAINING>;", "<EntryConversationGrammar_4>:\t <IMPLICIT_QUESTION_RACE_TRAINING>;");
+        List<String> destination = List.of("!language \"German\";",  "!start <TEST>", "<EntryConversationGrammar_4>:\t test;");
+
+        var replacer = Replacer.of(source, destination);
+        var result = replacer.replaceAll();
+
+        var expected = List.of("!language \"German\";", "!start <IMPLICIT_QUESTION_RACE_TRAINING>;", "!start <TEST>", "<EntryConversationGrammar_4>:\t <IMPLICIT_QUESTION_RACE_TRAINING>;");
+        assertListsAreEqual(expected, result);
+        //assertThat(result, equalTo(expected));
     }
+
+
 
 }

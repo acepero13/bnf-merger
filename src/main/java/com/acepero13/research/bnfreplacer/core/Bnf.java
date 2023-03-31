@@ -9,18 +9,17 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 final class Bnf implements Iterable<Expression> {
     private final List<Expression> expressions;
-    private List<Expression> mutableExpressions;
-    private static final List<Preprocessing> preprocessing = List.of(new SkipDummySlots()); // TODO: Check if this is the right place for this
+    private final MutableBnf mutableBnf;
+    private static final List<Preprocessing> preprocessing = List.of(new SkipDummySlots());
 
 
     private Bnf(List<Expression> expressions) {
         this.expressions = Collections.unmodifiableList(expressions);
-        this.mutableExpressions = new ArrayList<>(expressions);
+        this.mutableBnf = new MutableBnf(expressions);
     }
 
     public static Bnf ofExpressions(List<Expression> expressions) {
@@ -42,39 +41,96 @@ final class Bnf implements Iterable<Expression> {
     }
 
     public boolean contains(Expression sourceExpression) {
-        return mutableExpressions.stream().anyMatch(e -> e.representsSameExpressionAs(sourceExpression));
+        return mutableBnf.contains(sourceExpression);
+
     }
 
 
     public void clear() {
-        this.mutableExpressions.clear();
-        this.mutableExpressions = new ArrayList<>(expressions);
+        mutableBnf.clear();
+
     }
 
     public Difference update(Expression sourceExpression) {
-        var index = indexOf(sourceExpression);
-        if (index != -1) {
+        return mutableBnf.update(sourceExpression);
+    }
+
+
+    public void add(Expression sourceExpression) {
+        mutableBnf.add(sourceExpression);
+    }
+
+    public List<String> asStrings() {
+        return mutableBnf.asStrings();
+    }
+
+    private static class MutableBnf {
+
+        private final List<Expression> originalExpressions;
+        private final int firstStartPosition;
+        private List<Expression> mutableExpressions;
+
+        private MutableBnf(List<Expression> expressions) {
+            this.originalExpressions = Collections.unmodifiableList(expressions);
+            this.mutableExpressions = new ArrayList<>(expressions);
+            this.firstStartPosition = IntStream.range(0, originalExpressions.size())
+                    .filter(i -> isStartSymbol(originalExpressions.get(i)))
+                    .findFirst()
+                    .orElse(-1);
+        }
+
+        private boolean isStartSymbol(Expression expression) {
+            return expression.contains("!start");
+        }
+
+
+        public boolean contains(Expression sourceExpression) {
+            return mutableExpressions.stream().anyMatch(e -> e.representsSameExpressionAs(sourceExpression));
+        }
+
+        public Difference update(Expression sourceExpression) {
+            return updateAtPosition(sourceExpression, indexOf(sourceExpression));
+        }
+
+
+        private Difference updateAtPosition(Expression sourceExpression, int index) {
+            if (index == -1) {
+                return Difference.noOp();
+            }
             Expression original = mutableExpressions.get(index);
             if (!original.equals(sourceExpression)) {
                 mutableExpressions.set(index, sourceExpression);
                 return Difference.update(original, sourceExpression);
             }
+            return Difference.noOp();
         }
-        return Difference.noOp();
-    }
 
-    private int indexOf(Expression sourceExpression) {
-        return IntStream.range(0, mutableExpressions.size())
-                        .filter(i -> mutableExpressions.get(i).representsSameExpressionAs(sourceExpression))
-                        .findFirst()
-                        .orElse(-1);
-    }
+        private int indexOf(Expression sourceExpression) {
+            return IntStream.range(0, mutableExpressions.size())
+                            .filter(i -> mutableExpressions.get(i).representsSameExpressionAs(sourceExpression))
+                            .findFirst()
+                            .orElse(-1);
+        }
 
-    public void add(Expression sourceExpression) {
-        mutableExpressions.add(sourceExpression);
-    }
+        public void add(Expression sourceExpression) {
+            if(isStartSymbol(sourceExpression) && firstStartPosition > 0) {
+                mutableExpressions.add(firstStartPosition, sourceExpression);
+            } else {
+                mutableExpressions.add(sourceExpression);
+            }
 
-    public List<String> asStrings() {
-        return mutableExpressions.stream().map(Expression::originalLine).collect(Collectors.toList());
+
+        }
+
+
+
+        public List<String> asStrings() {
+            return mutableExpressions.stream().map(Expression::originalLine).toList();
+        }
+
+        public void clear() {
+            this.mutableExpressions.clear();
+            this.mutableExpressions = new ArrayList<>(originalExpressions);
+        }
     }
 }

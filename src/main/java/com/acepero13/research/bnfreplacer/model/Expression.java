@@ -50,6 +50,12 @@ public sealed interface Expression permits Expression.UnrecognizedExpression, Ru
         return this.getClass().isInstance(expr) && symbol().equals(expr.symbol());
     }
 
+
+
+    default boolean contains(String expression) {
+        return originalLine().contains(expression);
+    }
+
     final class UnrecognizedExpression implements Expression {
         private final String testLine;
 
