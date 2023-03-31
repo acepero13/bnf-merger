@@ -1,6 +1,5 @@
 package com.acepero13.research.bnfreplacer.core;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -10,8 +9,6 @@ import java.util.List;
 import static com.acepero13.research.bnfreplacer.test.utils.Assertions.assertListsAreEqual;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ReplacerTest {
     @Test

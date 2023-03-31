@@ -1,5 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="EntryPointsManager">
+    <pattern value="com.acepero13.research.bnfreplacer.core.Bnf" />
+    <pattern value="com.acepero13.research.bnfreplacer.model.ExpressionTest" method="bug_shouldRecognizeExpression" />
+    <pattern value="com.acepero13.research.bnfreplacer.model.ExpressionTest" method="commentExpression" />
+    <pattern value="com.acepero13.research.bnfreplacer.core.ReplacerTest" method="destinationIsEmpty" />
+    <pattern value="com.acepero13.research.bnfreplacer.model.StartSymbolTest" method="differentType" />
+    <pattern value="com.acepero13.research.bnfreplacer.plugins.SkipDummySlotsTest" method="doesNotSkipARegularLine" />
+    <pattern value="com.acepero13.research.bnfreplacer.model.RuleSymbolTest" method="expr" />
+    <pattern value="com.acepero13.research.bnfreplacer.model.Expression" />
+    <pattern value="com.acepero13.research.bnfreplacer.model.Expression" method="expression" />
+    <pattern value="com.acepero13.research.bnfreplacer.model.ExpressionTest" />
+    <pattern value="com.acepero13.research.bnfreplacer.core.ReplacerTest" />
+    <pattern value="com.acepero13.research.bnfreplacer.model.RuleSymbolTest" />
+    <pattern value="com.acepero13.research.bnfreplacer.plugins.SkipDummySlotsTest" />
+    <pattern value="com.acepero13.research.bnfreplacer.model.StartSymbolTest" />
+    <pattern value="com.acepero13.research.bnfreplacer.core.ReplacerTest" method="insertsOneValueBecauseSymbolIsDifferent" />
+    <pattern value="com.acepero13.research.bnfreplacer.model.ExpressionTest" method="instructionExpression" />
+    <pattern value="com.acepero13.research.bnfreplacer.Main" />
+    <pattern value="Main" />
+    <pattern value="Main" method="main" />
+    <pattern value="com.acepero13.research.bnfreplacer.Main" method="main" />
+    <pattern value="com.acepero13.research.bnfreplacer.core.Replacer" method="of" />
+    <pattern value="com.acepero13.research.bnfreplacer.core.Bnf" method="ofExpressions" />
+    <pattern value="com.acepero13.research.bnfreplacer.core.ReplacerTest" method="onlyOneGrammarIsAllowed" />
+    <pattern value="com.acepero13.research.bnfreplacer.core.ReplacerTest" method="onlyOneLanguageAllowed" />
+    <pattern value="com.acepero13.research.bnfreplacer.core.ReplacerTest" method="onlyOnePragmaAllowed" />
+    <pattern value="com.acepero13.research.bnfreplacer.model.Skip" method="originalLine" />
+    <pattern value="com.acepero13.research.bnfreplacer.model.StartSymbolTest" method="readSymbol" />
+    <pattern value="com.acepero13.research.bnfreplacer.core.ReplacerTest" method="reorders" />
+    <pattern value="com.acepero13.research.bnfreplacer.core.Replacer" />
+    <pattern value="com.acepero13.research.bnfreplacer.core.ReplacerTest" method="reportsInsertion" />
+    <pattern value="com.acepero13.research.bnfreplacer.model.StartSymbolTest" method="sameSymbol" />
+    <pattern value="com.acepero13.research.bnfreplacer.model.Skip" />
+    <pattern value="com.acepero13.research.bnfreplacer.model.Expression" method="skip" />
+    <pattern value="com.acepero13.research.bnfreplacer.model.Skip" method="Skip" />
+    <pattern value="com.acepero13.research.bnfreplacer.plugins.SkipDummySlotsTest" method="skipDummySlot" />
+    <pattern value="com.acepero13.research.bnfreplacer.core.ReplacerTest" method="skipDummySlots" />
+    <pattern value="com.acepero13.research.bnfreplacer.core.ReplacerTest" method="sourceIsEmpty" />
+    <pattern value="com.acepero13.research.bnfreplacer.model.Skip" method="symbol" />
+    <pattern value="com.acepero13.research.bnfreplacer.model.StartSymbolTest" method="toLine" />
+    <pattern value="com.acepero13.research.bnfreplacer.core.ReplacerTest" method="updatesOneValueBecauseTheExpressionIsDifferent" />
+    <pattern value="com.acepero13.research.bnfreplacer.model.Expression.UnrecognizedExpression" method="expression" />
+    <pattern value="com.acepero13.research.bnfreplacer.model.Grammar" method="expression" />
+    <pattern value="com.acepero13.research.bnfreplacer.model.Language" method="expression" />
+    <pattern value="com.acepero13.research.bnfreplacer.model.Pragma" method="expression" />
+    <pattern value="com.acepero13.research.bnfreplacer.model.Skip" method="expression" />
+    <pattern value="com.acepero13.research.bnfreplacer.model.Grammar" />
+    <pattern value="com.acepero13.research.bnfreplacer.model.Language" />
+    <pattern value="com.acepero13.research.bnfreplacer.model.Pragma" />
+    <pattern value="com.acepero13.research.bnfreplacer.model.Expression.UnrecognizedExpression" />
+  </component>
   <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="ProjectRootManager" version="2" languageLevel="JDK_17" project-jdk-name="16" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />

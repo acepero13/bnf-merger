@@ -1,13 +1,11 @@
 import com.acepero13.research.bnfreplacer.core.Replacer;
 import com.acepero13.research.bnfreplacer.core.reports.model.Report;
-import com.acepero13.research.bnfreplacer.utils.fs.Writer;
 
-import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
 
 public class Main {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         Path source = Path.of("C:\\Users\\cepero\\Documents\\NewProjects\\bnf-merger\\tmp\\en_grammar_en.bnf");
         Path destination = Path.of("C:\\Users\\cepero\\Documents\\NewProjects\\bnf-merger\\tmp\\DA_en.bnf");
         Replacer replacer = Replacer.of(source, destination);
