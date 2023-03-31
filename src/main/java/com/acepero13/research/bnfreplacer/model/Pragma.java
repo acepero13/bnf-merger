@@ -9,10 +9,6 @@ record Pragma(String expression, String originalLine) implements UniqueExpressio
         return PRAGMA;
     }
 
-    @Override
-    public String expression() {
-        return expression;
-    }
 
     @Override
     public boolean equals(Object o) {

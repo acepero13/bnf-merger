@@ -9,10 +9,6 @@ record Language(String expression, String originalLine) implements UniqueExpress
         return LANGUAGE;
     }
 
-    @Override
-    public String expression() {
-        return expression;
-    }
 
     @Override
     public boolean equals(Object o) {

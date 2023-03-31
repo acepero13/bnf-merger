@@ -8,12 +8,6 @@ record Grammar(String expression, String originalLine) implements UniqueExpressi
     public String symbol() {
         return GRAMMAR;
     }
-
-    @Override
-    public String expression() {
-        return expression;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof Grammar)) {
