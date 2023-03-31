@@ -1,5 +1,6 @@
 package com.acepero13.research.bnfreplacer.core;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -89,6 +90,22 @@ class ReplacerTest {
         var replacer = Replacer.of(source, destination);
         var result = replacer.replaceAll();
         assertThat(result, equalTo(destination));
+    }
+
+    @Test void skipDummySlots(){
+        List<String> source = List.of("<LOCATION>:\t( 1| 2| 3);");
+        List<String> destination = List.of("<LOCATION>:\t(<german_municipality> | <alternative_city_name>);");
+
+        var replacer = Replacer.of(source, destination);
+        var result = replacer.replaceAll();
+        assertThat(result, equalTo(destination));
+    }
+
+    @Test
+    @Disabled("To see if this really affects")
+    void ignoreDifferencesDueToSpaces(){
+        List<String> source = List.of("<Hotwords>:\t Hallo ( Audi| Assistent| Helfer| Edwin);");
+        List<String> destination = List.of("<Hotwords>: Hallo (Audi | Assistent | Helfer | Edwin);");
     }
 
 }

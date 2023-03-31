@@ -2,7 +2,7 @@ package com.acepero13.research.bnfreplacer.model;
 
 import com.acepero13.research.bnfreplacer.parser.ExpressionTable;
 
-public sealed interface Expression permits Expression.UnrecognizedExpression, RuleSymbol, StartSymbol, UniqueExpression {
+public sealed interface Expression permits Expression.UnrecognizedExpression, RuleSymbol, Skip, StartSymbol, UniqueExpression {
 
     static Expression of(String testLine) {
         return ExpressionTable.of(testLine).orElse(Expression.verbatimExpression(testLine));
@@ -34,6 +34,10 @@ public sealed interface Expression permits Expression.UnrecognizedExpression, Ru
 
     private static String sanitize(String str) {
         return str.trim();
+    }
+
+    static Expression skip() {
+        return new Skip();
     }
 
     String originalLine();

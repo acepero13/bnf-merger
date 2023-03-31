@@ -3,6 +3,8 @@ package com.acepero13.research.bnfreplacer.core;
 import com.acepero13.research.bnfreplacer.core.reports.model.Difference;
 import com.acepero13.research.bnfreplacer.core.reports.model.Report;
 import com.acepero13.research.bnfreplacer.model.Expression;
+import com.acepero13.research.bnfreplacer.plugins.Preprocessing;
+import com.acepero13.research.bnfreplacer.plugins.SkipDummySlots;
 import com.acepero13.research.bnfreplacer.utils.fs.Reader;
 
 import java.io.InputStream;
@@ -15,6 +17,8 @@ public final class Replacer {
     private final Bnf destination;
     private final Bnf source;
     private final List<Difference> differences = new ArrayList<>();
+
+
 
     private Replacer(Bnf source, Bnf destination) {
         this.source = source;
